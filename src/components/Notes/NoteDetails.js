@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import Modals from "../PopModal";
 //importing the the columns from the auditlogs
 import { auditLogscolumn } from "../../utils/tableColumn";
+import { useMyContext } from "../../store/ContextApi";
 
 const NoteDetails = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const NoteDetails = () => {
   const [editorContent, setEditorContent] = useState(note?.parsedContent);
   const [auditLogs, setAuditLogs] = useState([]);
   const [error, setError] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { isAdmin } = useMyContext();
   const [loading, setLoading] = useState(false);
   const [noteEditLoader, setNoteEditLoader] = useState(false);
   const [editEnable, setEditEnable] = useState(false);
@@ -49,18 +50,7 @@ const NoteDetails = () => {
     }
   }, [id]);
 
-  const checkAdminRole = async () => {
-    try {
-      const response = await api.get("/auth/user"); // Adjust the endpoint as necessary to get user info
-      const roles = response.data.roles;
-      if (roles.includes("ROLE_ADMIN")) {
-        setIsAdmin(true);
-      }
-    } catch (err) {
-      console.error("Error checking admin role", err);
-      setError("Error checking admin role", err);
-    }
-  };
+
 
   const fetchAuditLogs = useCallback(async () => {
     try {
@@ -75,7 +65,6 @@ const NoteDetails = () => {
   useEffect(() => {
     if (id) {
       fetchNoteDetails();
-      checkAdminRole();
       if (isAdmin) {
         fetchAuditLogs();
       }
@@ -132,7 +121,6 @@ const NoteDetails = () => {
       toast.success("Note update successful");
       setEditEnable(false);
       fetchNoteDetails();
-      checkAdminRole();
       if (isAdmin) {
         fetchAuditLogs();
       }

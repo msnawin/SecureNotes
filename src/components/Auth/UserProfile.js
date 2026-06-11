@@ -18,7 +18,7 @@ import Errors from "../Errors";
 
 const UserProfile = () => {
   // Access the currentUser and token hook using the useMyContext custom hook from the ContextProvider
-  const { currentUser, token } = useMyContext();
+  const { currentUser, token, isAdmin } = useMyContext();
   //set the loggin session from the token
   const [loginSession, setLoginSession] = useState(null);
 
@@ -69,7 +69,7 @@ const UserProfile = () => {
         const response = await api.get(`/auth/user/2fa-status`);
         setIs2faEnabled(response.data.is2faEnabled);
       } catch (error) {
-        setPageError(error?.response?.data?.message);
+        console.error("Error fetching 2FA status", error);
         toast.error("Error fetching 2FA status");
       } finally {
         setPageLoader(false);
@@ -200,7 +200,7 @@ const UserProfile = () => {
       formData.append("token", token);
       formData.append("expire", event.target.checked);
 
-      await api.put("/auth/update-expiry-status", formData, {
+      await api.put("/admin/update-expiry-status", formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -224,7 +224,7 @@ const UserProfile = () => {
       formData.append("token", token);
       formData.append("lock", event.target.checked);
 
-      await api.put("/auth/update-lock-status", formData, {
+      await api.put("/admin/update-lock-status", formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -247,7 +247,7 @@ const UserProfile = () => {
       formData.append("token", token);
       formData.append("enabled", event.target.checked);
 
-      await api.put("/auth/update-enabled-status", formData, {
+      await api.put("/admin/update-enabled-status", formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -270,7 +270,7 @@ const UserProfile = () => {
       formData.append("token", token);
       formData.append("expire", event.target.checked);
 
-      await api.put("/auth/update-credentials-expiry-status", formData, {
+      await api.put("/admin/update-credentials-expiry-status", formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -424,108 +424,110 @@ const UserProfile = () => {
                   </AccordionDetails>
                 </Accordion>
 
-                <Accordion 
-                  expanded={openSetting}
-                  sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.02)",
-                    border: "1px solid rgba(255, 255, 255, 0.06)",
-                    borderRadius: "12px !important",
-                    color: "#e4e4e7",
-                    boxShadow: "none",
-                    "&:before": { display: "none" }
-                  }}
-                >
-                  <AccordionSummary
-                    onClick={onOpenSettingHandler}
-                    expandIcon={<ArrowDropDownIcon sx={{ color: "#10b981" }} />}
-                    aria-controls="panel2-content"
-                    id="panel2-header"
+                {isAdmin && (
+                  <Accordion 
+                    expanded={openSetting}
                     sx={{
-                      borderBottom: openSetting ? "1px solid rgba(255, 255, 255, 0.06)" : "none",
-                      "& .MuiAccordionSummary-content": { margin: "12px 0" }
+                      backgroundColor: "rgba(255, 255, 255, 0.02)",
+                      border: "1px solid rgba(255, 255, 255, 0.06)",
+                      borderRadius: "12px !important",
+                      color: "#e4e4e7",
+                      boxShadow: "none",
+                      "&:before": { display: "none" }
                     }}
                   >
-                    <h3 className="text-surface-100 text-base font-semibold font-outfit">
-                      Account Settings
-                    </h3>
-                  </AccordionSummary>
-                  <AccordionDetails sx={{ padding: "16px 20px" }}>
-                    <div className="flex flex-col gap-4">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-surface-300 font-customWeight text-sm">
-                          Account Expired
-                        </h3>
-                        <Switch
-                          checked={accountExpired}
-                          onChange={handleAccountExpiryStatus}
-                          inputProps={{ "aria-label": "controlled" }}
-                          sx={{
-                            '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
-                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
-                            '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
-                          }}
-                        />
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-surface-300 font-customWeight text-sm">
-                          Account Locked
-                        </h3>
-                        <Switch
-                          checked={accountLocked}
-                          onChange={handleAccountLockStatus}
-                          inputProps={{ "aria-label": "controlled" }}
-                          sx={{
-                            '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
-                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
-                            '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
-                          }}
-                        />
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-surface-300 font-customWeight text-sm">
-                          Account Enabled
-                        </h3>
-                        <Switch
-                          checked={accountEnabled}
-                          onChange={handleAccountEnabledStatus}
-                          inputProps={{ "aria-label": "controlled" }}
-                          sx={{
-                            '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
-                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
-                            '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
-                          }}
-                        />
-                      </div>
-                      
-                      <div className="border-t border-white/[0.06] pt-4">
-                        <h3 className="text-surface-300 font-customWeight text-sm mb-2">
-                          Credential Expiry Date
-                        </h3>
-                        <div className="bg-white/[0.02] border border-white/[0.05] px-4 py-3 rounded-lg">
-                          <p className="text-surface-300 text-sm">
-                            Credentials will expire on: <span className="text-vault-400 font-semibold">{credentialExpireDate}</span>
-                          </p>
+                    <AccordionSummary
+                      onClick={onOpenSettingHandler}
+                      expandIcon={<ArrowDropDownIcon sx={{ color: "#10b981" }} />}
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      sx={{
+                        borderBottom: openSetting ? "1px solid rgba(255, 255, 255, 0.06)" : "none",
+                        "& .MuiAccordionSummary-content": { margin: "12px 0" }
+                      }}
+                    >
+                      <h3 className="text-surface-100 text-base font-semibold font-outfit">
+                        Account Settings
+                      </h3>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ padding: "16px 20px" }}>
+                      <div className="flex flex-col gap-4">
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-surface-300 font-customWeight text-sm">
+                            Account Expired
+                          </h3>
+                          <Switch
+                            checked={accountExpired}
+                            onChange={handleAccountExpiryStatus}
+                            inputProps={{ "aria-label": "controlled" }}
+                            sx={{
+                              '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
+                              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
+                              '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
+                            }}
+                          />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-surface-300 font-customWeight text-sm">
+                            Account Locked
+                          </h3>
+                          <Switch
+                            checked={accountLocked}
+                            onChange={handleAccountLockStatus}
+                            inputProps={{ "aria-label": "controlled" }}
+                            sx={{
+                              '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
+                              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
+                              '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
+                            }}
+                          />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-surface-300 font-customWeight text-sm">
+                            Account Enabled
+                          </h3>
+                          <Switch
+                            checked={accountEnabled}
+                            onChange={handleAccountEnabledStatus}
+                            inputProps={{ "aria-label": "controlled" }}
+                            sx={{
+                              '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
+                              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
+                              '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
+                            }}
+                          />
+                        </div>
+                        
+                        <div className="border-t border-white/[0.06] pt-4">
+                          <h3 className="text-surface-300 font-customWeight text-sm mb-2">
+                            Credential Expiry Date
+                          </h3>
+                          <div className="bg-white/[0.02] border border-white/[0.05] px-4 py-3 rounded-lg">
+                            <p className="text-surface-300 text-sm">
+                              Credentials will expire on: <span className="text-vault-400 font-semibold">{credentialExpireDate}</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-surface-300 font-customWeight text-sm">
+                            Credential Expired
+                          </h3>
+                          <Switch
+                            checked={credentialExpired}
+                            onChange={handleCredentialExpiredStatus}
+                            inputProps={{ "aria-label": "controlled" }}
+                            sx={{
+                              '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
+                              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
+                              '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
+                            }}
+                          />
                         </div>
                       </div>
-
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-surface-300 font-customWeight text-sm">
-                          Credential Expired
-                        </h3>
-                        <Switch
-                          checked={credentialExpired}
-                          onChange={handleCredentialExpiredStatus}
-                          inputProps={{ "aria-label": "controlled" }}
-                          sx={{
-                            '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
-                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
-                            '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
+                    </AccordionDetails>
+                  </Accordion>
+                )}
               </div>
 
               <div className="border-t border-white/[0.06] pt-6">

@@ -1,8 +1,11 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 const ContactPage = () => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    toast.success("Message sent successfully!");
+    event.target.reset();
   };
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-74px)] relative">
