@@ -9,17 +9,33 @@ Secure Notes is a secure, modern, and premium web application designed for creat
 ### 🌐 Landing Page
 *A sleek, cyber-themed entrance featuring features overview and quick navigation.*
 
+<img src="https://raw.githubusercontent.com/msnawin/SecureNotes/f3a3501286ef0f2e15d79a644bd6fce6f362c924/Screenshot%202026-06-11%20203312.png" alt="RookVault Notes Landing Page" width="80%">
+
+<img src="https://raw.githubusercontent.com/msnawin/SecureNotes/f3a3501286ef0f2e15d79a644bd6fce6f362c924/Screenshot%202026-06-11%20203324.png" alt="Notes Editor Dashboard" width="80%">
+
 
 ### 📝 Notes Dashboard & Editor
 *Manage your private notes with a rich text editor and easy CRUD operations.*
+
+<img src="https://raw.githubusercontent.com/msnawin/SecureNotes/f3a3501286ef0f2e15d79a644bd6fce6f362c924/Screenshot%202026-06-11%20203851.png" alt="Security Settings & MFA" width="80%">
+
+<img src="https://raw.githubusercontent.com/msnawin/SecureNotes/f3a3501286ef0f2e15d79a644bd6fce6f362c924/Screenshot%202026-06-11%20203907.png" alt="Admin Dashboard User List" width="80%">
+
+<img src="https://raw.githubusercontent.com/msnawin/SecureNotes/f3a3501286ef0f2e15d79a644bd6fce6f362c924/Screenshot%202026-06-11%20203917.png" alt="System Audit Logs" width="80%">
 
 
 ### 🔒 Security Settings (MFA & Profile)
 *Configure Two-Factor Authentication (2FA) and update credentials instantly.*
 
+<img src="https://raw.githubusercontent.com/msnawin/SecureNotes/f3a3501286ef0f2e15d79a644bd6fce6f362c924/Screenshot%202026-06-11%20203952.png" alt="RookVault Notes Overview" width="80%">
+
 
 ### 🗃️ Admin Panel & Audit Logs
 *Admin dashboard showing access controls, user lists, and detailed audit history of note actions.*
+
+<img src="https://raw.githubusercontent.com/msnawin/SecureNotes/f3a3501286ef0f2e15d79a644bd6fce6f362c924/Screenshot%202026-06-11%20204005.png" alt="RookVault Notes Workspace Details" width="80%">
+
+<img src="https://raw.githubusercontent.com/msnawin/SecureNotes/f3a3501286ef0f2e15d79a644bd6fce6f362c924/Screenshot%202026-06-11%20204013.png" alt="Admin System Configurations" width="80%">
 
 ---
 
