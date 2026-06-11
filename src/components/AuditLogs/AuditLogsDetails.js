@@ -60,59 +60,56 @@ const AuditLogsDetails = () => {
   }
 
   return (
-    <div className="p-4">
-      <div className="py-6">
+    <div className="p-6 relative">
+      {/* Ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-vault-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="py-6 relative z-10">
         {auditLogs.length > 0 && (
-          <h1 className="text-center sm:text-2xl text-lg font-bold text-slate-800 ">
-            Audit Log for Note ID - {noteId}
+          <h1 className="text-center sm:text-2xl text-lg font-bold text-surface-100 font-outfit uppercase tracking-wider">
+            Audit Log for Note ID: <span className="text-vault-400 font-mono">{noteId}</span>
           </h1>
         )}
       </div>
       {loading ? (
-        <>
-          {" "}
-          <div className="flex  flex-col justify-center items-center  h-72">
-            <span>
-              <Blocks
-                height="70"
-                width="70"
-                color="#4fa94d"
-                ariaLabel="blocks-loading"
-                wrapperStyle={{}}
-                wrapperClass="blocks-wrapper"
-                visible={true}
-              />
-            </span>
-            <span>Please wait...</span>
-          </div>
-        </>
+        <div className="flex flex-col justify-center items-center h-72 relative z-10">
+          <span>
+            <Blocks
+              height="70"
+              width="70"
+              color="#10b981"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              visible={true}
+            />
+          </span>
+          <span className="text-surface-400 mt-2">Please wait...</span>
+        </div>
       ) : (
-        <>
+        <div className="relative z-10">
           {auditLogs.length === 0 ? (
             <Errors message="Invalid NoteId" />
           ) : (
-            <>
-              {" "}
-              <div className="overflow-x-auto w-full">
-                <DataGrid
-                  className="w-fit mx-auto px-0"
-                  rows={rows}
-                  columns={auditLogscolumn}
-                  initialState={{
-                    pagination: {
-                      paginationModel: {
-                        pageSize: 6,
-                      },
+            <div className="overflow-x-auto w-full">
+              <DataGrid
+                className="w-fit mx-auto px-0"
+                rows={rows}
+                columns={auditLogscolumn}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 6,
                     },
-                  }}
-                  disableRowSelectionOnClick
-                  pageSizeOptions={[6]}
-                  disableColumnResize
-                />
-              </div>
-            </>
-          )}{" "}
-        </>
+                  },
+                }}
+                disableRowSelectionOnClick
+                pageSizeOptions={[6]}
+                disableColumnResize
+              />
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

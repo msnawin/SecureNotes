@@ -5,17 +5,18 @@ const ContactPage = () => {
     event.preventDefault();
   };
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-74px)] bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full mx-4 text-center">
-        <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
-        <p className="text-gray-600 mb-4">
+    <div className="flex items-center justify-center min-h-[calc(100vh-74px)] relative">
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-vault-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="glass-card p-8 max-w-md w-full mx-4 text-center relative z-10 animate-fade-in">
+        <h1 className="text-3xl font-bold mb-4 text-surface-100 font-outfit">Contact Us</h1>
+        <p className="text-surface-400 mb-6">
           We'd love to hear from you! If you have any questions or feedback,
           feel free to reach out to us.
         </p>
-        <form onSubmit={onSubmitHandler} className="space-y-4">
+        <form onSubmit={onSubmitHandler} className="space-y-4 text-left">
           <div>
             <label
-              className="block text-left text-gray-700 mb-2"
+              className="block text-surface-300 mb-2 text-sm font-medium"
               htmlFor="name"
             >
               Name
@@ -23,12 +24,12 @@ const ContactPage = () => {
             <input
               type="text"
               id="name"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2.5 glass-input"
             />
           </div>
           <div>
             <label
-              className="block text-left text-gray-700 mb-2"
+              className="block text-surface-300 mb-2 text-sm font-medium"
               htmlFor="email"
             >
               Email
@@ -36,24 +37,25 @@ const ContactPage = () => {
             <input
               type="email"
               id="email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2.5 glass-input"
             />
           </div>
           <div>
             <label
-              className="block text-left text-gray-700 mb-2"
+              className="block text-surface-300 mb-2 text-sm font-medium"
               htmlFor="message"
             >
               Message
             </label>
             <textarea
               id="message"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              rows={4}
+              className="w-full px-4 py-2.5 glass-input resize-none"
             ></textarea>
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="vault-btn w-full px-4 py-2.5 text-white"
           >
             Send Message
           </button>

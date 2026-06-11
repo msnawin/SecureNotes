@@ -14,8 +14,8 @@ const InputField = ({
   readOnly,
 }) => {
   return (
-    <div className={`flex flex-col gap-1 ${className}`}>
-      <label htmlFor={id} className={` font-semibold text-md text-slate-800 `}>
+    <div className={`flex flex-col gap-1.5 ${className}`}>
+      <label htmlFor={id} className={`font-semibold text-sm text-surface-300 font-outfit`}>
         {label}
       </label>
 
@@ -23,11 +23,11 @@ const InputField = ({
         type={type}
         id={id}
         placeholder={placeholder}
-        className={` px-2 py-2 border  ${
-          autoFocus ? "border-2" : ""
-        }   outline-none bg-transparent  text-slate-700 rounded-md ${
-          errors[id]?.message ? "border-red-500" : "border-slate-700"
-        }`}
+        className={`glass-input px-3 py-2 ${
+          autoFocus ? "ring-2 ring-vault-500/30" : ""
+        } ${
+          errors[id]?.message ? "border-red-500/50 focus:border-red-500/50 focus:ring-red-500/20" : ""
+        } ${readOnly ? "opacity-60 cursor-not-allowed bg-white/[0.02]" : ""}`}
         {...register(id, {
           required: { value: required, message },
           minLength: min
@@ -38,7 +38,7 @@ const InputField = ({
       />
 
       {errors[id]?.message && (
-        <p className="text-sm font-semibold text-red-500 mt-0">
+        <p className="text-xs font-semibold text-red-400 mt-0.5">
           {errors[id]?.message}*
         </p>
       )}

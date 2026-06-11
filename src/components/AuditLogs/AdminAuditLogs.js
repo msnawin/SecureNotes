@@ -20,8 +20,8 @@ export const auditLogcolumns = [
     disableColumnMenu: true,
     align: "center",
     editable: false,
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal  border",
+    headerClassName: "text-vault-400 font-semibold border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04]",
     renderHeader: (params) => <span>Action</span>,
   },
 
@@ -33,8 +33,8 @@ export const auditLogcolumns = [
     disableColumnMenu: true,
     headerAlign: "center",
     align: "center",
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal  border",
+    headerClassName: "text-vault-400 font-semibold border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04]",
     renderHeader: (params) => <span>UserName</span>,
   },
 
@@ -46,14 +46,14 @@ export const auditLogcolumns = [
     editable: false,
     headerAlign: "center",
     align: "center",
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal  border",
+    headerClassName: "text-vault-400 font-semibold border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04]",
     renderHeader: (params) => <span>TimeStamp</span>,
     renderCell: (params) => {
       return (
-        <div className=" flex  items-center justify-center  gap-1 ">
+        <div className="flex items-center justify-center gap-1.5">
           <span>
-            <MdDateRange className="text-slate-700 text-lg" />
+            <MdDateRange className="text-vault-400 text-lg" />
           </span>
           <span>{params?.row?.timestamp}</span>
         </div>
@@ -68,8 +68,8 @@ export const auditLogcolumns = [
     editable: false,
     headerAlign: "center",
     align: "center",
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal  border",
+    headerClassName: "text-vault-400 font-semibold border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04]",
     renderHeader: (params) => <span>NoteId</span>,
   },
   {
@@ -80,15 +80,15 @@ export const auditLogcolumns = [
     headerAlign: "center",
     disableColumnMenu: true,
     align: "center",
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal  border",
+    headerClassName: "text-vault-400 font-semibold border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04]",
     renderHeader: (params) => <span>Note Content</span>,
     renderCell: (params) => {
       const contens = JSON.parse(params?.value)?.content;
 
       const response = auditLogsTruncateTexts(contens);
 
-      return <p className=" text-slate-700 text-center   ">{response}</p>;
+      return <p className="text-surface-300 text-center">{response}</p>;
     },
   },
   {
@@ -98,8 +98,8 @@ export const auditLogcolumns = [
     editable: false,
     headerAlign: "center",
     align: "center",
-    headerClassName: "text-black font-semibold ",
-    cellClassName: "text-slate-700 font-normal  ",
+    headerClassName: "text-vault-400 font-semibold border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04]",
     sortable: false,
 
     renderHeader: (params) => <span>Action</span>,
@@ -107,9 +107,9 @@ export const auditLogcolumns = [
       return (
         <Link
           to={`/admin/audit-logs/${params.row.noteId}`}
-          className="h-full flex justify-center  items-center   "
+          className="h-full flex justify-center items-center"
         >
-          <button className="bg-btnColor text-white px-4 flex justify-center items-center  h-9 rounded-md ">
+          <button className="vault-btn text-white px-4 flex justify-center items-center h-9">
             Views
           </button>
         </Link>
@@ -165,51 +165,48 @@ const AdminAuditLogs = () => {
   }
 
   return (
-    <div className="p-4">
-      <div className="py-4">
-        <h1 className="text-center text-2xl font-bold text-slate-800 uppercase">
+    <div className="p-6 relative">
+      {/* Ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-vault-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="py-4 relative z-10">
+        <h1 className="text-center text-2xl font-bold text-surface-100 font-outfit uppercase tracking-wider mb-2">
           Audit Logs
         </h1>
       </div>
       {loading ? (
-        <>
-          {" "}
-          <div className="flex  flex-col justify-center items-center  h-72">
-            <span>
-              <Blocks
-                height="70"
-                width="70"
-                color="#4fa94d"
-                ariaLabel="blocks-loading"
-                wrapperStyle={{}}
-                wrapperClass="blocks-wrapper"
-                visible={true}
-              />
-            </span>
-            <span>Please wait...</span>
-          </div>
-        </>
-      ) : (
-        <>
-          {" "}
-          <div className="overflow-x-auto w-full mx-auto">
-            <DataGrid
-              className="w-fit mx-auto px-0"
-              rows={rows}
-              columns={auditLogcolumns}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 6,
-                  },
-                },
-              }}
-              pageSizeOptions={[6]}
-              disableRowSelectionOnClick
-              disableColumnResize
+        <div className="flex flex-col justify-center items-center h-72 relative z-10">
+          <span>
+            <Blocks
+              height="70"
+              width="70"
+              color="#10b981"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              visible={true}
             />
-          </div>
-        </>
+          </span>
+          <span className="text-surface-400 mt-2">Please wait...</span>
+        </div>
+      ) : (
+        <div className="overflow-x-auto w-full mx-auto relative z-10">
+          <DataGrid
+            className="w-fit mx-auto px-0"
+            rows={rows}
+            columns={auditLogcolumns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 6,
+                },
+              },
+            }}
+            pageSizeOptions={[6]}
+            disableRowSelectionOnClick
+            disableColumnResize
+          />
+        </div>
       )}
     </div>
   );

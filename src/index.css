@@ -1,20 +1,145 @@
-/* add google fonts */
+/* ===== Google Fonts ===== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Dancing+Script:wght@400..700&display=swap");
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-
-/* importing the base styles, component styles, and utility classes from Tailwind CSS into this project */
+/* ===== Tailwind Base ===== */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* add custom effect to the table row */
+/* ===== Global Base Styles ===== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-surface-950 text-surface-200 font-inter antialiased;
+    background-image: radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.04) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+  ::selection {
+    @apply bg-vault-500/30 text-white;
+  }
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-surface-950;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-vault-600;
+}
+
+/* ===== Glassmorphism Utilities ===== */
+@layer components {
+  .glass {
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl;
+  }
+  .glass-card {
+    @apply bg-white/[0.04] backdrop-blur-md border border-white/[0.08] rounded-xl shadow-glass;
+  }
+  .glass-input {
+    @apply bg-white/[0.05] border border-white/[0.1] rounded-lg text-surface-200 placeholder-surface-500 focus:border-vault-500/50 focus:ring-1 focus:ring-vault-500/20 focus:outline-none transition-all duration-300;
+  }
+  .vault-btn {
+    @apply bg-vault-gradient text-white font-semibold rounded-lg shadow-glow hover:shadow-glow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300;
+  }
+  .vault-btn-outline {
+    @apply border border-vault-500/30 text-vault-400 rounded-lg hover:bg-vault-500/10 hover:border-vault-500/50 hover:shadow-glow transition-all duration-300;
+  }
+  .glow-border {
+    @apply border border-vault-500/20 shadow-glow;
+  }
+  .text-gradient {
+    @apply bg-gradient-to-r from-vault-400 to-vault-600 bg-clip-text text-transparent;
+  }
+}
+
+/* ===== MUI DataGrid Overrides (Dark Theme) ===== */
+.MuiDataGrid-root {
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  border-radius: 12px !important;
+  background: rgba(255,255,255,0.02) !important;
+  color: #e4e4e7 !important;
+}
 .MuiDataGrid-row:nth-of-type(odd) {
-  background-color: #eee6e6;
+  background-color: rgba(255,255,255,0.02) !important;
 }
-
 .MuiDataGrid-row:nth-of-type(even) {
-  background-color: #ffffff;
+  background-color: rgba(255,255,255,0.04) !important;
+}
+.MuiDataGrid-row:hover {
+  background-color: rgba(16, 185, 129, 0.05) !important;
+}
+.MuiDataGrid-columnHeaders {
+  background: rgba(16, 185, 129, 0.08) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  color: #10b981 !important;
+}
+.MuiDataGrid-columnHeaderTitle {
+  font-weight: 600 !important;
+  color: #10b981 !important;
+}
+.MuiDataGrid-cell {
+  border-bottom: 1px solid rgba(255,255,255,0.04) !important;
+  color: #e4e4e7 !important;
+}
+.MuiDataGrid-footerContainer {
+  border-top: 1px solid rgba(255,255,255,0.06) !important;
+  color: #a1a1aa !important;
+}
+.MuiTablePagination-root {
+  color: #a1a1aa !important;
+}
+.MuiDataGrid-toolbarContainer button {
+  color: #10b981 !important;
+}
+.MuiCheckbox-root {
+  color: #71717a !important;
+}
+.MuiCheckbox-root.Mui-checked {
+  color: #10b981 !important;
 }
 
-/* custom effect for the table */
+/* ===== React Quill Editor Dark Theme ===== */
+.ql-toolbar.ql-snow {
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 12px 12px 0 0 !important;
+  background: rgba(255,255,255,0.03) !important;
+}
+.ql-container.ql-snow {
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-top: none !important;
+  border-radius: 0 0 12px 12px !important;
+  background: rgba(255,255,255,0.02) !important;
+  color: #e4e4e7 !important;
+  min-height: 200px;
+}
+.ql-editor.ql-blank::before {
+  color: #71717a !important;
+  font-style: normal !important;
+}
+.ql-snow .ql-stroke {
+  stroke: #a1a1aa !important;
+}
+.ql-snow .ql-fill {
+  fill: #a1a1aa !important;
+}
+.ql-snow .ql-picker-label {
+  color: #a1a1aa !important;
+}
+.ql-snow .ql-picker-options {
+  background: #27272a !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 8px !important;
+}
+
+/* ===== Toast overrides ===== */
+[data-sonner-toaster], .react-hot-toast {
+  font-family: "Inter", sans-serif !important;
+}

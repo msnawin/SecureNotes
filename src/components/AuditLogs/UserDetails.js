@@ -166,35 +166,36 @@ const UserDetails = () => {
   }
 
   return (
-    <div className="sm:px-12 px-4 py-10   ">
+    <div className="sm:px-12 px-4 py-10 relative">
+      {/* Ambient glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-vault-500/5 rounded-full blur-3xl pointer-events-none" />
+
       {loading ? (
-        <>
-          {" "}
-          <div className="flex  flex-col justify-center items-center  h-72">
-            <span>
-              <Blocks
-                height="70"
-                width="70"
-                color="#4fa94d"
-                ariaLabel="blocks-loading"
-                wrapperStyle={{}}
-                wrapperClass="blocks-wrapper"
-                visible={true}
-              />
-            </span>
-            <span>Please wait...</span>
-          </div>
-        </>
+        <div className="flex flex-col justify-center items-center h-72 relative z-10">
+          <span>
+            <Blocks
+              height="70"
+              width="70"
+              color="#10b981"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              visible={true}
+            />
+          </span>
+          <span className="text-surface-400 mt-2">Please wait...</span>
+        </div>
       ) : (
-        <>
-          <div className="lg:w-[70%] sm:w-[90%] w-full  mx-auto shadow-lg shadow-gray-300 p-8 rounded-md">
+        <div className="space-y-6 max-w-4xl mx-auto relative z-10">
+          {/* Profile Details Card */}
+          <div className="glass-card p-6 border border-white/[0.08]">
             <div>
-              <h1 className="text-slate-800 text-2xl font-bold  pb-4">
+              <h1 className="text-surface-100 text-2xl font-bold font-outfit pb-2">
                 Profile Information
-                <hr />
               </h1>
+              <hr className="border-white/[0.08] mb-6" />
               <form
-                className="flex  flex-col  gap-2  "
+                className="flex flex-col gap-4"
                 onSubmit={handleSubmit(handleSavePassword)}
               >
                 <InputField
@@ -213,7 +214,7 @@ const UserDetails = () => {
                   label="Email"
                   required
                   id="email"
-                  className="flex-1"
+                  className="w-full"
                   type="text"
                   message="*Email is required"
                   placeholder="Enter your Email"
@@ -234,58 +235,56 @@ const UserDetails = () => {
                   errors={errors}
                   readOnly={!isEditingPassword}
                   min={6}
-                />{" "}
+                />
                 {!isEditingPassword ? (
-                  <Buttons
+                  <button
                     type="button"
-                    onClickhandler={() =>
-                      setIsEditingPassword(!isEditingPassword)
-                    }
-                    className="bg-customRed mb-0 w-fit px-4 py-2 rounded-md text-white"
+                    onClick={() => setIsEditingPassword(!isEditingPassword)}
+                    className="bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 font-semibold px-5 py-2.5 rounded-lg transition-all duration-300 w-fit"
                   >
                     Click To Edit Password
-                  </Buttons>
+                  </button>
                 ) : (
-                  <div className="flex items-center gap-2 ">
-                    <Buttons
+                  <div className="flex items-center gap-3">
+                    <button
                       type="submit"
-                      className="bg-btnColor mb-0 w-fit px-4 py-2 rounded-md text-white"
+                      className="vault-btn text-white px-6 py-2.5 rounded-lg font-semibold"
                     >
                       {passwordLoader ? "Loading.." : "Save"}
-                    </Buttons>
-                    <Buttons
+                    </button>
+                    <button
                       type="button"
-                      onClickhandler={() =>
-                        setIsEditingPassword(!isEditingPassword)
-                      }
-                      className="bg-customRed mb-0 w-fit px-4 py-2 rounded-md text-white"
+                      onClick={() => setIsEditingPassword(!isEditingPassword)}
+                      className="bg-surface-800 border border-white/10 hover:bg-surface-700 text-surface-200 px-6 py-2.5 rounded-lg font-semibold transition-all duration-300"
                     >
                       Cancel
-                    </Buttons>
+                    </button>
                   </div>
                 )}
               </form>
             </div>
           </div>
-          <div className="lg:w-[70%] sm:w-[90%] w-full  mx-auto shadow-lg shadow-gray-300 p-8 rounded-md">
-            <h1 className="text-slate-800 text-2xl font-bold  pb-4">
-              Admin Actions
-              <hr />
-            </h1>
 
-            <div className="py-4 flex sm:flex-row flex-col sm:items-center items-start gap-4">
-              <div className="flex items-center gap-2">
-                <label className="text-slate-600 text-lg font-semibold ">
-                  Role:{" "}
+          {/* Admin Actions Card */}
+          <div className="glass-card p-6 border border-white/[0.08]">
+            <h1 className="text-surface-100 text-2xl font-bold font-outfit pb-2">
+              Admin Actions
+            </h1>
+            <hr className="border-white/[0.08] mb-6" />
+
+            <div className="py-2 flex sm:flex-row flex-col sm:items-center items-start gap-4">
+              <div className="flex items-center gap-3">
+                <label className="text-surface-300 text-sm font-semibold uppercase tracking-wider font-outfit">
+                  Role:
                 </label>
                 <select
-                  className=" px-8 py-1 rounded-md  border-2 uppercase border-slate-600  "
+                  className="px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.1] text-surface-200 outline-none focus:border-vault-500/50 uppercase text-xs font-semibold tracking-wider transition-all duration-300"
                   value={selectedRole}
                   onChange={handleRoleChange}
                 >
                   {roles.map((role) => (
                     <option
-                      className="bg-slate-200 flex flex-col gap-4 uppercase text-slate-700"
+                      className="bg-surface-900 text-surface-200 uppercase"
                       key={role.roleId}
                       value={role.roleName}
                     >
@@ -295,22 +294,22 @@ const UserDetails = () => {
                 </select>
               </div>
               <button
-                className="bg-btnColor hover:text-slate-300 px-4 py-2 rounded-md text-white "
+                className="vault-btn hover:text-white px-5 py-2 rounded-lg font-semibold"
                 onClick={handleUpdateRole}
               >
-                {updateRoleLoader ? "Loading..." : "Update Role"}
+                {updateRoleLoader ? "Updating..." : "Update Role"}
               </button>
             </div>
 
-            <hr className="py-2" />
-            <div className="flex flex-col gap-4 py-4">
-              <div className="flex items-center gap-2">
-                <label className="text-slate-600 text-sm font-semibold uppercase">
-                  {" "}
+            <hr className="border-white/[0.06] my-6" />
+            <div className="grid sm:grid-cols-2 grid-cols-1 gap-5">
+              <div className="flex items-center justify-between p-4 bg-white/[0.01] border border-white/[0.05] rounded-xl hover:border-vault-500/10 transition-colors duration-200">
+                <label className="text-surface-300 text-sm font-semibold uppercase font-outfit tracking-wide cursor-pointer" htmlFor="lock">
                   Lock Account
                 </label>
                 <input
-                  className="text-14 w-5 h-5"
+                  id="lock"
+                  className="accent-vault-500 w-5 h-5 cursor-pointer"
                   type="checkbox"
                   name="lock"
                   checked={!user?.accountNonLocked}
@@ -319,13 +318,14 @@ const UserDetails = () => {
                   }
                 />
               </div>
-              <div className="flex items-center gap-2">
-                <label className="text-slate-600 text-sm font-semibold uppercase">
-                  {" "}
+
+              <div className="flex items-center justify-between p-4 bg-white/[0.01] border border-white/[0.05] rounded-xl hover:border-vault-500/10 transition-colors duration-200">
+                <label className="text-surface-300 text-sm font-semibold uppercase font-outfit tracking-wide cursor-pointer" htmlFor="expire">
                   Account Expiry
                 </label>
                 <input
-                  className="text-14 w-5 h-5"
+                  id="expire"
+                  className="accent-vault-500 w-5 h-5 cursor-pointer"
                   type="checkbox"
                   name="expire"
                   checked={!user?.accountNonExpired}
@@ -334,13 +334,14 @@ const UserDetails = () => {
                   }
                 />
               </div>
-              <div className="flex items-center gap-2">
-                <label className="text-slate-600 text-sm font-semibold uppercase">
-                  {" "}
+
+              <div className="flex items-center justify-between p-4 bg-white/[0.01] border border-white/[0.05] rounded-xl hover:border-vault-500/10 transition-colors duration-200">
+                <label className="text-surface-300 text-sm font-semibold uppercase font-outfit tracking-wide cursor-pointer" htmlFor="enabled">
                   Account Enabled
                 </label>
                 <input
-                  className="text-14 w-5 h-5"
+                  id="enabled"
+                  className="accent-vault-500 w-5 h-5 cursor-pointer"
                   type="checkbox"
                   name="enabled"
                   checked={user?.enabled}
@@ -349,13 +350,14 @@ const UserDetails = () => {
                   }
                 />
               </div>
-              <div className="flex items-center gap-2">
-                <label className="text-slate-600 text-sm font-semibold uppercase">
-                  {" "}
+
+              <div className="flex items-center justify-between p-4 bg-white/[0.01] border border-white/[0.05] rounded-xl hover:border-vault-500/10 transition-colors duration-200">
+                <label className="text-surface-300 text-sm font-semibold uppercase font-outfit tracking-wide cursor-pointer" htmlFor="credentialsExpire">
                   Credentials Expired
                 </label>
                 <input
-                  className="text-14 w-5 h-5"
+                  id="credentialsExpire"
+                  className="accent-vault-500 w-5 h-5 cursor-pointer"
                   type="checkbox"
                   name="credentialsExpire"
                   checked={!user?.credentialsNonExpired}
@@ -369,7 +371,7 @@ const UserDetails = () => {
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

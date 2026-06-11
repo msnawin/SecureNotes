@@ -41,42 +41,45 @@ const AllNotes = () => {
 
   return (
     <div className="min-h-[calc(100vh-74px)] sm:py-10 sm:px-5 px-0 py-4">
-      <div className="w-[92%] mx-auto ">
+      <div className="w-[92%] mx-auto">
         {!loading && notes && notes?.length > 0 && (
-          <h1 className="font-montserrat  text-slate-800 sm:text-4xl text-2xl font-semibold ">
+          <h1 className="font-outfit text-surface-100 sm:text-4xl text-2xl font-semibold">
             My Notes
           </h1>
         )}
         {loading ? (
-          <div className="flex  flex-col justify-center items-center  h-72">
+          <div className="flex flex-col justify-center items-center h-72">
             <span>
               <Blocks
                 height="70"
                 width="70"
-                color="#4fa94d"
+                color="#10b981"
                 ariaLabel="blocks-loading"
                 wrapperStyle={{}}
                 wrapperClass="blocks-wrapper"
                 visible={true}
               />
             </span>
-            <span>Please wait...</span>
+            <span className="text-surface-400 mt-2">Please wait...</span>
           </div>
         ) : (
           <>
             {notes && notes?.length === 0 ? (
-              <div className="flex flex-col items-center justify-center min-h-96  p-4">
-                <div className="text-center">
-                  <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                    You didn't create any note yet
+              <div className="flex flex-col items-center justify-center min-h-96 p-4">
+                <div className="text-center glass-card p-10 animate-fade-in">
+                  <div className="w-16 h-16 rounded-2xl bg-vault-500/10 border border-vault-500/20 flex items-center justify-center mx-auto mb-6">
+                    <FiFilePlus className="text-vault-400 text-3xl" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-surface-100 mb-3 font-outfit">
+                    No notes yet
                   </h2>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-surface-400 mb-6">
                     Start by creating a new note to keep track of your thoughts.
                   </p>
                   <div className="w-full flex justify-center">
                     <Link to="/create-note">
-                      <button className="flex items-center px-4 py-2 bg-btnColor text-white rounded  focus:outline-none focus:ring-2 focus:ring-blue-300">
-                        <FiFilePlus className="mr-2" size={24} />
+                      <button className="vault-btn flex items-center px-6 py-2.5 text-white">
+                        <FiFilePlus className="mr-2" size={20} />
                         Create New Note
                       </button>
                     </Link>
@@ -85,7 +88,7 @@ const AllNotes = () => {
               </div>
             ) : (
               <>
-                <div className="pt-10 grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-10 gap-x-5 justify-center">
+                <div className="pt-10 grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-6 gap-x-5 justify-center">
                   {notes.map((item) => (
                     <NoteItems key={item.id} {...item} id={item.id} />
                   ))}

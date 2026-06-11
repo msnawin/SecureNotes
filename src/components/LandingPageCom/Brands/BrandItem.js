@@ -11,11 +11,11 @@ const BrandItem = ({ text, icon: Icon, title }) => {
       }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      className="shadow-sm shadow-btnColor flex flex-col pt-7 pb-10 px-4 items-center gap-3 justify-center"
+      className="glass-card hover:border-vault-500/20 hover:shadow-glow flex flex-col pt-7 pb-10 px-6 items-center gap-4 justify-center transition-all duration-300 group"
     >
-      <Icon className="text-slate-700 text-6xl" />
-      <h3 className="text-xl text-slate-700 font-bold">{title}</h3>
-      <p className="text-slate-600 text-center">{text}</p>
+      <Icon className="text-vault-400 text-5xl group-hover:scale-110 transition-transform duration-300" />
+      <h3 className="text-xl text-surface-100 font-bold font-outfit">{title}</h3>
+      <p className="text-surface-400 text-center text-sm leading-relaxed">{text}</p>
     </motion.div>
   );
 };

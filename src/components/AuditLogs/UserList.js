@@ -20,28 +20,28 @@ export const userListsColumns = [
     disableColumnMenu: true,
     align: "center",
     editable: false,
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal  border",
+    headerClassName: "text-vault-400 font-semibold border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04]",
     renderHeader: (params) => <span className="text-center">UserName</span>,
   },
 
   {
     field: "email",
     headerName: "Email",
-    aligh: "center",
+    align: "center",
     width: 260,
     editable: false,
     headerAlign: "center",
-    headerClassName: "text-black font-semibold text-center border ",
-    cellClassName: "text-slate-700 font-normal  border  text-center ",
+    headerClassName: "text-vault-400 font-semibold text-center border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04] text-center",
     align: "center",
     disableColumnMenu: true,
     renderHeader: (params) => <span>Email</span>,
     renderCell: (params) => {
       return (
-        <div className=" flex  items-center justify-center  gap-1 ">
+        <div className="flex items-center justify-center gap-1.5">
           <span>
-            <MdOutlineEmail className="text-slate-700 text-lg" />
+            <MdOutlineEmail className="text-vault-400 text-lg" />
           </span>
           <span>{params?.row?.email}</span>
         </div>
@@ -54,16 +54,16 @@ export const userListsColumns = [
     headerAlign: "center",
     width: 220,
     editable: false,
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal  border  ",
+    headerClassName: "text-vault-400 font-semibold border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04]",
     align: "center",
     disableColumnMenu: true,
     renderHeader: (params) => <span>Created At</span>,
     renderCell: (params) => {
       return (
-        <div className=" flex justify-center  items-center  gap-1 ">
+        <div className="flex justify-center items-center gap-1.5">
           <span>
-            <MdDateRange className="text-slate-700 text-lg" />
+            <MdDateRange className="text-vault-400 text-lg" />
           </span>
           <span>{params?.row?.created}</span>
         </div>
@@ -78,8 +78,8 @@ export const userListsColumns = [
     width: 200,
     editable: false,
     disableColumnMenu: true,
-    headerClassName: "text-black font-semibold border ",
-    cellClassName: "text-slate-700 font-normal  border  ",
+    headerClassName: "text-vault-400 font-semibold border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04]",
     renderHeader: (params) => <span className="ps-10">Status</span>,
   },
   {
@@ -87,8 +87,8 @@ export const userListsColumns = [
     headerName: "Action",
     headerAlign: "center",
     editable: false,
-    headerClassName: "text-black font-semibold text-cente",
-    cellClassName: "text-slate-700 font-normal",
+    headerClassName: "text-vault-400 font-semibold border-white/[0.06]",
+    cellClassName: "text-surface-300 font-normal border-white/[0.04]",
     sortable: false,
     width: 200,
     renderHeader: (params) => <span>Action</span>,
@@ -96,9 +96,9 @@ export const userListsColumns = [
       return (
         <Link
           to={`/admin/users/${params.id}`}
-          className="h-full flex  items-center justify-center   "
+          className="h-full flex items-center justify-center"
         >
-          <button className="bg-btnColor text-white px-4 flex justify-center items-center  h-9 rounded-md ">
+          <button className="vault-btn text-white px-4 flex justify-center items-center h-9">
             Views
           </button>
         </Link>
@@ -152,49 +152,47 @@ const UserList = () => {
   }
 
   return (
-    <div className="p-4">
-      <div className="py-4">
-        <h1 className="text-center text-2xl font-bold text-slate-800 uppercase">
+    <div className="p-6 relative">
+      {/* Ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-vault-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="py-4 relative z-10">
+        <h1 className="text-center text-2xl font-bold text-surface-100 font-outfit uppercase tracking-wider mb-2">
           All Users
         </h1>
       </div>
-      <div className="overflow-x-auto w-full mx-auto">
+      <div className="overflow-x-auto w-full mx-auto relative z-10">
         {loading ? (
-          <>
-            <div className="flex  flex-col justify-center items-center  h-72">
-              <span>
-                <Blocks
-                  height="70"
-                  width="70"
-                  color="#4fa94d"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  visible={true}
-                />
-              </span>
-              <span>Please wait...</span>
-            </div>
-          </>
+          <div className="flex flex-col justify-center items-center h-72">
+            <span>
+              <Blocks
+                height="70"
+                width="70"
+                color="#10b981"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                visible={true}
+              />
+            </span>
+            <span className="text-surface-400 mt-2">Please wait...</span>
+          </div>
         ) : (
-          <>
-            {" "}
-            <DataGrid
-              className="w-fit mx-auto"
-              rows={rows}
-              columns={userListsColumns}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 6,
-                  },
+          <DataGrid
+            className="w-fit mx-auto"
+            rows={rows}
+            columns={userListsColumns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 6,
                 },
-              }}
-              disableRowSelectionOnClick
-              pageSizeOptions={[6]}
-              disableColumnResize
-            />
-          </>
+              },
+            }}
+            disableRowSelectionOnClick
+            pageSizeOptions={[6]}
+            disableColumnResize
+          />
         )}
       </div>
     </div>

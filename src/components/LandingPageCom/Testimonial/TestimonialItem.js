@@ -9,19 +9,20 @@ const TestimonialItem = ({ title, text, name, status, imgurl }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      className="bg-testimonialCard    flex flex-col p-6 shadow-md shadow-slate-500 rounded-md"
+      className="glass-card hover:border-vault-500/20 hover:shadow-glow flex flex-col p-6 justify-between transition-all duration-300 group"
     >
-      <h1 className="text-slate-900 font-montserrat text-2xl font-bold pb-6 ">
-        {title}
-      </h1>
+      <div>
+        <h1 className="text-surface-100 font-outfit text-2xl font-bold pb-4">
+          {title}
+        </h1>
+        <p className="text-sm text-surface-400 leading-relaxed">{text}</p>
+      </div>
 
-      <p className="text-xm text-slate-600">{text}</p>
-
-      <div className="pt-5 flex gap-2 items-center">
-        <Avatar alt={name} src={imgurl} />
-        <div className="flex flex-col  ">
-          <span className="font-semibold">{name}</span>
-          <span className="-mt-1">{status}</span>
+      <div className="pt-5 flex gap-3 items-center border-t border-white/[0.06] mt-6">
+        <Avatar alt={name} src={imgurl} sx={{ border: "2px solid rgba(16,185,129,0.2)" }} />
+        <div className="flex flex-col">
+          <span className="font-semibold text-surface-200 font-outfit text-sm">{name}</span>
+          <span className="text-xs text-surface-500 font-medium">{status}</span>
         </div>
       </div>
     </motion.div>

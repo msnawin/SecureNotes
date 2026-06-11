@@ -26,35 +26,43 @@ const Navbar = () => {
   };
 
   return (
-    <header className="h-headerHeight z-50 text-textColor bg-headerColor shadow-sm  flex items-center sticky top-0">
+    <header className="h-headerHeight z-50 bg-surface-950/80 backdrop-blur-xl border-b border-white/[0.06] shadow-lg shadow-black/20 flex items-center sticky top-0">
       <nav className="sm:px-10 px-4 flex w-full h-full items-center justify-between">
-        <Link to="/">
-          {" "}
-          <h3 className=" font-dancingScript text-logoText">Secure Notes</h3>
+        <Link to="/" className="group flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-vault-gradient flex items-center justify-center shadow-glow group-hover:shadow-glow-md transition-all duration-300">
+            <span className="text-white font-bold text-sm font-outfit">R</span>
+          </div>
+          <h3 className="font-outfit text-xl font-bold text-gradient group-hover:opacity-80 transition-opacity duration-300">
+            RookVault Notes
+          </h3>
         </Link>
         <ul
-          className={`lg:static  absolute left-0  top-16 w-full lg:w-fit lg:px-0 sm:px-10 px-4  lg:bg-transparent bg-headerColor   ${
+          className={`lg:static absolute left-0 top-[74px] w-full lg:w-fit lg:px-0 sm:px-10 px-4 lg:bg-transparent bg-surface-950/95 backdrop-blur-xl lg:backdrop-blur-none border-b lg:border-b-0 border-white/[0.06] ${
             headerToggle
-              ? "min-h-fit max-h-navbarHeight lg:py-0 py-4 shadow-md shadow-slate-700 lg:shadow-none"
+              ? "min-h-fit max-h-navbarHeight lg:py-0 py-4 shadow-lg shadow-black/30 lg:shadow-none"
               : "h-0 overflow-hidden "
-          }  lg:h-auto transition-all duration-100 font-montserrat text-textColor flex lg:flex-row flex-col lg:gap-8 gap-2`}
+          }  lg:h-auto transition-all duration-300 font-inter text-surface-300 flex lg:flex-row flex-col lg:gap-1 gap-1`}
         >
           {token && (
             <>
               <Link to="/notes">
                 <li
-                  className={` ${
-                    pathName === "/notes" ? "font-semibold " : ""
-                  } py-2 cursor-pointer  hover:text-slate-300 `}
+                  className={`${
+                    pathName === "/notes"
+                      ? "text-vault-400 font-semibold bg-vault-500/10"
+                      : ""
+                  } py-2 px-4 rounded-lg cursor-pointer hover:text-vault-400 hover:bg-vault-500/5 transition-all duration-200`}
                 >
                   My Notes
                 </li>
               </Link>
               <Link to="/create-note">
                 <li
-                  className={` py-2 cursor-pointer  hover:text-slate-300 ${
-                    pathName === "/create-note" ? "font-semibold " : ""
-                  } `}
+                  className={`py-2 px-4 rounded-lg cursor-pointer hover:text-vault-400 hover:bg-vault-500/5 transition-all duration-200 ${
+                    pathName === "/create-note"
+                      ? "text-vault-400 font-semibold bg-vault-500/10"
+                      : ""
+                  }`}
                 >
                   Create Note
                 </li>
@@ -65,8 +73,10 @@ const Navbar = () => {
           <Link to="/contact">
             <li
               className={`${
-                pathName === "/contact" ? "font-semibold " : ""
-              } py-2 cursor-pointer hover:text-slate-300`}
+                pathName === "/contact"
+                  ? "text-vault-400 font-semibold bg-vault-500/10"
+                  : ""
+              } py-2 px-4 rounded-lg cursor-pointer hover:text-vault-400 hover:bg-vault-500/5 transition-all duration-200`}
             >
               Contact
             </li>
@@ -74,8 +84,10 @@ const Navbar = () => {
 
           <Link to="/about">
             <li
-              className={`py-2 cursor-pointer hover:text-slate-300 ${
-                pathName === "/about" ? "font-semibold " : ""
+              className={`py-2 px-4 rounded-lg cursor-pointer hover:text-vault-400 hover:bg-vault-500/5 transition-all duration-200 ${
+                pathName === "/about"
+                  ? "text-vault-400 font-semibold bg-vault-500/10"
+                  : ""
               }`}
             >
               About
@@ -86,8 +98,10 @@ const Navbar = () => {
             <>
               <Link to="/profile">
                 <li
-                  className={` py-2 cursor-pointer  hover:text-slate-300 ${
-                    pathName === "/profile" ? "font-semibold " : ""
+                  className={`py-2 px-4 rounded-lg cursor-pointer hover:text-vault-400 hover:bg-vault-500/5 transition-all duration-200 ${
+                    pathName === "/profile"
+                      ? "text-vault-400 font-semibold bg-vault-500/10"
+                      : ""
                   }`}
                 >
                   Profile
@@ -96,8 +110,10 @@ const Navbar = () => {
               {isAdmin && (
                 <Link to="/admin/users">
                   <li
-                    className={` py-2 cursor-pointer uppercase   hover:text-slate-300 ${
-                      pathName.startsWith("/admin") ? "font-semibold " : ""
+                    className={`py-2 px-4 rounded-lg cursor-pointer uppercase text-xs tracking-wider hover:text-vault-400 hover:bg-vault-500/5 transition-all duration-200 ${
+                      pathName.startsWith("/admin")
+                        ? "text-vault-400 font-semibold bg-vault-500/10"
+                        : ""
                     }`}
                   >
                     Admin
@@ -106,27 +122,27 @@ const Navbar = () => {
               )}
               <button
                 onClick={handleLogout}
-                className="w-24 text-center bg-customRed font-semibold px-4 py-2 rounded-sm cursor-pointer hover:text-slate-300"
+                className="lg:ml-2 w-24 text-center bg-red-500/10 border border-red-500/20 text-red-400 font-semibold px-4 py-2 rounded-lg cursor-pointer hover:bg-red-500/20 hover:border-red-500/40 transition-all duration-300"
               >
                 LogOut
               </button>
             </>
           ) : (
             <Link to="/signup">
-              <li className="w-24 text-center bg-btnColor font-semibold px-4 py-2 rounded-sm cursor-pointer hover:text-slate-300">
-                SignUp
+              <li className="lg:ml-2 w-28 text-center vault-btn px-4 py-2 text-white">
+                Sign Up
               </li>
             </Link>
           )}
         </ul>
         <span
           onClick={() => setHeaderToggle(!headerToggle)}
-          className="lg:hidden block cursor-pointer text-textColor  shadow-md hover:text-slate-400"
+          className="lg:hidden block cursor-pointer text-surface-300 hover:text-vault-400 transition-colors duration-200"
         >
           {headerToggle ? (
-            <RxCross2 className=" text-2xl" />
+            <RxCross2 className="text-2xl" />
           ) : (
-            <IoMenu className=" text-2xl" />
+            <IoMenu className="text-2xl" />
           )}
         </span>
       </nav>

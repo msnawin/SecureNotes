@@ -37,16 +37,16 @@ const CreateNote = () => {
 
   return (
     <div className="min-h-[calc(100vh-74px)] p-10">
-      <div className="flex items-center gap-1 pb-5">
-        <h1 className="font-montserrat  text-slate-800 sm:text-4xl text-2xl font-semibold ">
+      <div className="flex items-center gap-2 pb-5">
+        <h1 className="font-outfit text-surface-100 sm:text-4xl text-2xl font-semibold">
           Create New Note
         </h1>
-        <MdNoteAlt className="text-slate-700 text-4xl" />
+        <MdNoteAlt className="text-vault-400 text-4xl" />
       </div>
 
-      <div className="h-72 sm:mb-20  lg:mb-14 mb-28 ">
+      <div className="h-72 sm:mb-20 lg:mb-14 mb-28">
         <ReactQuill
-          className="h-full "
+          className="h-full"
           value={editorContent}
           onChange={handleChange}
           modules={{
@@ -73,7 +73,7 @@ const CreateNote = () => {
       <Buttons
         disabled={loading}
         onClickhandler={handleSubmit}
-        className="bg-customRed  text-white px-4 py-2 hover:text-slate-300 rounded-sm"
+        className="vault-btn text-white px-6 py-2.5"
       >
         {loading ? <span>Loading...</span> : " Create Note"}
       </Buttons>

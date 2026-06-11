@@ -80,47 +80,59 @@ const Signup = () => {
   }, [navigate, token]);
 
   return (
-    <div className="min-h-[calc(100vh-74px)] flex justify-center items-center">
+    <div className="min-h-[calc(100vh-74px)] flex justify-center items-center relative">
+      {/* Ambient glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-vault-500/5 rounded-full blur-3xl pointer-events-none" />
+
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
-        className="sm:w-[450px] w-[360px]  shadow-custom py-6 sm:px-8 px-4"
+        className="sm:w-[450px] w-[360px] glass-card py-6 sm:px-8 px-4 relative z-10 animate-fade-in"
       >
         <div>
-          <h1 className="font-montserrat text-center font-bold text-2xl">
-            Register Here Here
+          <div className="flex justify-center mb-4">
+            <div className="w-12 h-12 rounded-xl bg-vault-gradient flex items-center justify-center shadow-glow">
+              <span className="text-white font-bold text-lg font-outfit">R</span>
+            </div>
+          </div>
+          <h1 className="font-outfit text-center font-bold text-2xl text-surface-100">
+            Create Account
           </h1>
-          <p className="text-slate-600 text-center">
-            Enter your credentials to create new account
+          <p className="text-surface-400 text-center text-sm mt-1">
+            Join RookVault and secure your notes
           </p>
-          <div className="flex items-center justify-between gap-1 py-5 ">
+          <div className="flex items-center justify-between gap-2 py-5">
             <a
               href={`${apiUrl}/oauth2/authorization/google`}
-              className="flex gap-1 items-center justify-center flex-1 border p-2 shadow-sm shadow-slate-200 rounded-md hover:bg-slate-300 transition-all duration-300"
+              className="flex gap-2 items-center justify-center flex-1 glass-input p-2.5 rounded-lg hover:bg-white/[0.08] transition-all duration-300 cursor-pointer"
             >
               <span>
-                <FcGoogle className="text-2xl" />
+                <FcGoogle className="text-xl" />
               </span>
-              <span className="font-semibold sm:text-customText text-xs">
-                Login with Google
+              <span className="font-medium sm:text-customText text-xs text-surface-300">
+                Google
               </span>
             </a>
             <a
               href={`${apiUrl}/oauth2/authorization/github`}
-              className="flex gap-1 items-center justify-center flex-1 border p-2 shadow-sm shadow-slate-200 rounded-md hover:bg-slate-300 transition-all duration-300"
+              className="flex gap-2 items-center justify-center flex-1 glass-input p-2.5 rounded-lg hover:bg-white/[0.08] transition-all duration-300 cursor-pointer"
             >
               <span>
-                <FaGithub className="text-2xl" />
+                <FaGithub className="text-xl text-surface-300" />
               </span>
-              <span className="font-semibold sm:text-customText text-xs">
-                Login with Github
+              <span className="font-medium sm:text-customText text-xs text-surface-300">
+                GitHub
               </span>
             </a>
           </div>
 
-          <Divider className="font-semibold">OR</Divider>
+          <div className="flex items-center gap-3 my-2">
+            <div className="flex-1 h-px bg-white/[0.08]"></div>
+            <span className="text-surface-500 text-xs font-medium uppercase tracking-wider">or</span>
+            <div className="flex-1 h-px bg-white/[0.08]"></div>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 mt-3">
           <InputField
             label="UserName"
             required
@@ -156,19 +168,19 @@ const Signup = () => {
         <Buttons
           disabled={loading}
           onClickhandler={() => {}}
-          className="bg-customRed font-semibold flex justify-center text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
+          className="vault-btn font-semibold flex justify-center text-white w-full py-2.5 my-4"
           type="text"
         >
-          {loading ? <span>Loading...</span> : "Register"}
+          {loading ? <span>Loading...</span> : "Create Account"}
         </Buttons>
 
-        <p className="text-center text-sm text-slate-700 mt-2">
+        <p className="text-center text-sm text-surface-400 mt-2">
           Already have an account?{" "}
           <Link
-            className="font-semibold underline hover:text-black"
+            className="font-semibold text-vault-400 hover:text-vault-300 transition-colors duration-200"
             to="/login"
           >
-            Login
+            Sign In
           </Link>
         </p>
       </form>

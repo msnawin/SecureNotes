@@ -18,28 +18,28 @@ export default function CardSlider() {
         modules={[EffectCards]}
         className="mySwiper w-[240px] h-[320px]"
       >
-        <SwiperSlide className="flex justify-center items-center rounded-md text-white font-bold text-xl">
-          <div className="bg-btnColor flex justify-center items-center h-full">
-            Secure Notes
+        <SwiperSlide className="flex justify-center items-center rounded-xl text-white font-bold text-xl">
+          <div className="bg-vault-gradient flex justify-center items-center h-full rounded-xl font-outfit">
+            RookVault Notes
           </div>
         </SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center rounded-md text-white font-bold text-xl">
-          <div className="bg-rose-700  flex justify-center items-center h-full">
+        <SwiperSlide className="flex justify-center items-center rounded-xl text-white font-bold text-xl">
+          <div className="bg-gradient-to-br from-rose-600 to-rose-800 flex justify-center items-center h-full rounded-xl font-outfit">
             More Faster
           </div>
         </SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center rounded-md text-white font-bold text-xl">
-          <div className="bg-slate-900 flex justify-center items-center h-full">
+        <SwiperSlide className="flex justify-center items-center rounded-xl text-white font-bold text-xl">
+          <div className="bg-gradient-to-br from-surface-800 to-surface-950 flex justify-center items-center h-full rounded-xl border border-white/[0.1] font-outfit">
             Faster Impression
           </div>
         </SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center rounded-md text-white font-bold text-xl">
-          <div className="bg-purple-900 flex justify-center items-center h-full">
+        <SwiperSlide className="flex justify-center items-center rounded-xl text-white font-bold text-xl">
+          <div className="bg-gradient-to-br from-purple-700 to-purple-900 flex justify-center items-center h-full rounded-xl font-outfit">
             Higher lead Quality
           </div>
         </SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center rounded-md text-white font-bold text-xl">
-          <div className="bg-green-600 flex justify-center text-center items-center h-full">
+        <SwiperSlide className="flex justify-center items-center rounded-xl text-white font-bold text-xl">
+          <div className="bg-gradient-to-br from-vault-600 to-vault-800 flex justify-center items-center h-full text-center rounded-xl font-outfit">
             Higher Conversion Rate
           </div>
         </SwiperSlide>

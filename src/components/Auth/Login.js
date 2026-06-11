@@ -119,49 +119,61 @@ const Login = () => {
 
   //step1 will render the login form and step-2 will render the 2fa verification form
   return (
-    <div className="min-h-[calc(100vh-74px)] flex justify-center items-center">
+    <div className="min-h-[calc(100vh-74px)] flex justify-center items-center relative">
+      {/* Ambient glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-vault-500/5 rounded-full blur-3xl pointer-events-none" />
+      
       {step === 1 ? (
         <React.Fragment>
           <form
             onSubmit={handleSubmit(onLoginHandler)}
-            className="sm:w-[450px] w-[360px]  shadow-custom py-8 sm:px-8 px-4"
+            className="sm:w-[450px] w-[360px] glass-card py-8 sm:px-8 px-4 relative z-10 animate-fade-in"
           >
             <div>
-              <h1 className="font-montserrat text-center font-bold text-2xl">
-                Login Here
+              <div className="flex justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-vault-gradient flex items-center justify-center shadow-glow">
+                  <span className="text-white font-bold text-lg font-outfit">R</span>
+                </div>
+              </div>
+              <h1 className="font-outfit text-center font-bold text-2xl text-surface-100">
+                Welcome Back
               </h1>
-              <p className="text-slate-600 text-center">
-                Please Enter your username and password{" "}
+              <p className="text-surface-400 text-center text-sm mt-1">
+                Sign in to your RookVault account
               </p>
-              <div className="flex items-center justify-between gap-1 py-5 ">
+              <div className="flex items-center justify-between gap-2 py-5">
                 <Link
                   to={`${apiUrl}/oauth2/authorization/google`}
-                  className="flex gap-1 items-center justify-center flex-1 border p-2 shadow-sm shadow-slate-200 rounded-md hover:bg-slate-300 transition-all duration-300"
+                  className="flex gap-2 items-center justify-center flex-1 glass-input p-2.5 rounded-lg hover:bg-white/[0.08] transition-all duration-300 cursor-pointer"
                 >
                   <span>
-                    <FcGoogle className="text-2xl" />
+                    <FcGoogle className="text-xl" />
                   </span>
-                  <span className="font-semibold sm:text-customText text-xs">
-                    Login with Google
+                  <span className="font-medium sm:text-customText text-xs text-surface-300">
+                    Google
                   </span>
                 </Link>
                 <Link
                   to={`${apiUrl}/oauth2/authorization/github`}
-                  className="flex gap-1 items-center justify-center flex-1 border p-2 shadow-sm shadow-slate-200 rounded-md hover:bg-slate-300 transition-all duration-300"
+                  className="flex gap-2 items-center justify-center flex-1 glass-input p-2.5 rounded-lg hover:bg-white/[0.08] transition-all duration-300 cursor-pointer"
                 >
                   <span>
-                    <FaGithub className="text-2xl" />
+                    <FaGithub className="text-xl text-surface-300" />
                   </span>
-                  <span className="font-semibold sm:text-customText text-xs">
-                    Login with Github
+                  <span className="font-medium sm:text-customText text-xs text-surface-300">
+                    GitHub
                   </span>
                 </Link>
               </div>
 
-              <Divider className="font-semibold">OR</Divider>
+              <div className="flex items-center gap-3 my-2">
+                <div className="flex-1 h-px bg-white/[0.08]"></div>
+                <span className="text-surface-500 text-xs font-medium uppercase tracking-wider">or</span>
+                <div className="flex-1 h-px bg-white/[0.08]"></div>
+              </div>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 mt-3">
               <InputField
                 label="UserName"
                 required
@@ -186,27 +198,27 @@ const Login = () => {
             <Buttons
               disabled={loading}
               onClickhandler={() => {}}
-              className="bg-customRed font-semibold text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
+              className="vault-btn font-semibold text-white w-full py-2.5 my-4"
               type="text"
             >
-              {loading ? <span>Loading...</span> : "LogIn"}
+              {loading ? <span>Loading...</span> : "Sign In"}
             </Buttons>
-            <p className=" text-sm text-slate-700 ">
+            <p className="text-sm text-surface-400">
               <Link
-                className=" underline hover:text-black"
+                className="underline hover:text-vault-400 transition-colors duration-200"
                 to="/forgot-password"
               >
                 Forgot Password?
               </Link>
             </p>
 
-            <p className="text-center text-sm text-slate-700 mt-6">
+            <p className="text-center text-sm text-surface-400 mt-6">
               Don't have an account?{" "}
               <Link
-                className="font-semibold underline hover:text-black"
+                className="font-semibold text-vault-400 hover:text-vault-300 transition-colors duration-200"
                 to="/signup"
               >
-                SignUp
+                Sign Up
               </Link>
             </p>
           </form>
@@ -215,17 +227,26 @@ const Login = () => {
         <React.Fragment>
           <form
             onSubmit={handleSubmit(onVerify2FaHandler)}
-            className="sm:w-[450px] w-[360px]  shadow-custom py-8 sm:px-8 px-4"
+            className="sm:w-[450px] w-[360px] glass-card py-8 sm:px-8 px-4 relative z-10 animate-fade-in"
           >
             <div>
-              <h1 className="font-montserrat text-center font-bold text-2xl">
+              <div className="flex justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-vault-gradient flex items-center justify-center shadow-glow animate-pulse-glow">
+                  <span className="text-white font-bold text-lg">🔐</span>
+                </div>
+              </div>
+              <h1 className="font-outfit text-center font-bold text-2xl text-surface-100">
                 Verify 2FA
               </h1>
-              <p className="text-slate-600 text-center">
-                Enter the correct code to complete 2FA Authentication
+              <p className="text-surface-400 text-center text-sm mt-1">
+                Enter the code from your authenticator app
               </p>
 
-              <Divider className="font-semibold pb-4"></Divider>
+              <div className="flex items-center gap-3 my-4">
+                <div className="flex-1 h-px bg-white/[0.08]"></div>
+                <div className="w-2 h-2 rounded-full bg-vault-500/50"></div>
+                <div className="flex-1 h-px bg-white/[0.08]"></div>
+              </div>
             </div>
 
             <div className="flex flex-col gap-2 mt-4">
@@ -243,7 +264,7 @@ const Login = () => {
             <Buttons
               disabled={loading}
               onClickhandler={() => {}}
-              className="bg-customRed font-semibold text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
+              className="vault-btn font-semibold text-white w-full py-2.5 my-4"
               type="text"
             >
               {loading ? <span>Loading...</span> : "Verify 2FA"}

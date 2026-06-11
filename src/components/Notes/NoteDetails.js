@@ -148,14 +148,14 @@ const NoteDetails = () => {
     navigate(-1);
   };
   return (
-    <div className=" min-h-[calc(100vh-74px)] md:px-10 md:py-8 sm:px-6 py-4 px-4">
+    <div className="min-h-[calc(100vh-74px)] md:px-10 md:py-8 sm:px-6 py-4 px-4">
       <Buttons
         onClickhandler={onBackHandler}
-        className="bg-btnColor px-4 py-2 rounded-md text-white hover:text-slate-200 mb-3"
+        className="vault-btn-outline px-4 py-2 rounded-lg mb-3"
       >
-        Go Back
+        ← Go Back
       </Buttons>
-      <div className=" py-6 px-8 min-h-customHeight shadow-lg shadow-gray-300 rounded-md">
+      <div className="py-6 px-8 min-h-customHeight glass-card">
         <>
           <>
             {!loading && (
@@ -163,14 +163,14 @@ const NoteDetails = () => {
                 {!editEnable ? (
                   <Buttons
                     onClickhandler={() => setEditEnable(!editEnable)}
-                    className="bg-btnColor text-white px-3 py-1 rounded-md"
+                    className="vault-btn text-white px-4 py-1.5 rounded-lg text-sm"
                   >
                     Edit
                   </Buttons>
                 ) : (
                   <Buttons
                     onClickhandler={() => setEditEnable(!editEnable)}
-                    className="bg-customRed text-white px-3 py-1 rounded-md"
+                    className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-1.5 rounded-lg text-sm hover:bg-red-500/20 transition-all duration-300"
                   >
                     Cancel
                   </Buttons>
@@ -178,7 +178,7 @@ const NoteDetails = () => {
                 {!editEnable && (
                   <Buttons
                     onClickhandler={() => setModalOpen(true)}
-                    className="bg-customRed text-white px-3 py-1 rounded-md"
+                    className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-1.5 rounded-lg text-sm hover:bg-red-500/20 transition-all duration-300"
                   >
                     Delete
                   </Buttons>
@@ -188,28 +188,28 @@ const NoteDetails = () => {
           </>
           {loading ? (
             <>
-              <div className="flex   flex-col justify-center items-center  h-96">
+              <div className="flex flex-col justify-center items-center h-96">
                 <span>
                   <Blocks
                     height="70"
                     width="70"
-                    color="#4fa94d"
+                    color="#10b981"
                     ariaLabel="blocks-loading"
                     wrapperStyle={{}}
                     wrapperClass="blocks-wrapper"
                     visible={true}
                   />
                 </span>
-                <span>Please wait...</span>
+                <span className="text-surface-400 mt-2">Please wait...</span>
               </div>
             </>
           ) : (
             <>
               {editEnable ? (
                 <>
-                  <div className="h-72 sm:mb-20  lg:mb-14 mb-28 ">
+                  <div className="h-72 sm:mb-20 lg:mb-14 mb-28">
                     <ReactQuill
-                      className="h-full "
+                      className="h-full"
                       value={editorContent}
                       onChange={handleChange}
                       modules={{
@@ -241,7 +241,7 @@ const NoteDetails = () => {
                     <Buttons
                       disabled={noteEditLoader}
                       onClickhandler={onNoteEditHandler}
-                      className="bg-customRed  md:mt-16 mt-28 text-white px-4 py-2 hover:text-slate-300 rounded-sm"
+                      className="vault-btn md:mt-16 mt-28 text-white px-6 py-2.5"
                     >
                       {noteEditLoader ? (
                         <span>Loading...</span>
@@ -254,19 +254,19 @@ const NoteDetails = () => {
               ) : (
                 <>
                   <p
-                    className=" text-slate-900 ql-editor"
+                    className="text-surface-200 ql-editor"
                     dangerouslySetInnerHTML={{ __html: note?.parsedContent }}
                   ></p>
 
                   {isAdmin && (
                     <div className="mt-10">
-                      <h1 className="text-2xl text-center text-slate-700 font-semibold uppercase pt-10 pb-4">
+                      <h1 className="text-2xl text-center text-vault-400 font-semibold uppercase pt-10 pb-4 font-outfit">
                         Audit Logs
                       </h1>
 
-                      <div className="overflow-x-auto ">
+                      <div className="overflow-x-auto">
                         <DataGrid
-                          className="w-fit mx-auto "
+                          className="w-fit mx-auto"
                           rows={rows}
                           columns={auditLogscolumn}
                           initialState={{

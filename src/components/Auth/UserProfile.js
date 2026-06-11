@@ -300,221 +300,271 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-74px)] py-10">
-      {pageLoader ? (
-        <>
-          {" "}
-          <div className="flex  flex-col justify-center items-center  h-72">
-            <span>
-              <Blocks
-                height="70"
-                width="70"
-                color="#4fa94d"
-                ariaLabel="blocks-loading"
-                wrapperStyle={{}}
-                wrapperClass="blocks-wrapper"
-                visible={true}
-              />
-            </span>
-            <span>Please wait...</span>
-          </div>
-        </>
-      ) : (
-        <>
-          {" "}
-          <div className="xl:w-[70%] lg:w-[80%] sm:w-[90%] w-full sm:mx-auto sm:px-0 px-4   min-h-[500px] flex lg:flex-row flex-col gap-4 ">
-            <div className="flex-1  flex flex-col shadow-lg shadow-gray-300 gap-2 px-4 py-6">
-              <div className="flex flex-col items-center gap-2   ">
-                <Avatar
-                  alt={currentUser?.username}
-                  src="/static/images/avatar/1.jpg"
-                />
-                <h3 className="font-semibold text-2xl">
-                  {currentUser?.username}
-                </h3>
-              </div>
-              <div className="my-4 ">
-                <div className="space-y-2 px-4 mb-1">
-                  <h1 className="font-semibold text-md text-slate-800">
-                    UserName :{" "}
-                    <span className=" text-slate-700  font-normal">
-                      {currentUser?.username}
-                    </span>
-                  </h1>
-                  <h1 className="font-semibold text-md text-slate-800">
-                    Role :{" "}
-                    <span className=" text-slate-700  font-normal">
-                      {currentUser && currentUser["roles"][0]}
-                    </span>
-                  </h1>
-                </div>
-                <div className="py-3">
-                  <Accordion expanded={openAccount}>
-                    <AccordionSummary
-                      className="shadow-md shadow-gray-300"
-                      onClick={onOpenAccountHandler}
-                      expandIcon={<ArrowDropDownIcon />}
-                      aria-controls="panel1-content"
-                      id="panel1-header"
-                    >
-                      <h3 className="text-slate-800 text-lg font-semibold ">
-                        Update User Credentials
-                      </h3>
-                    </AccordionSummary>
-                    <AccordionDetails className="shadow-md shadow-gray-300">
-                      <form
-                        className=" flex flex-col gap-3"
-                        onSubmit={handleSubmit(handleUpdateCredential)}
-                      >
-                        <InputField
-                          label="UserName"
-                          required
-                          id="username"
-                          className="text-sm"
-                          type="text"
-                          message="*Username is required"
-                          placeholder="Enter your username"
-                          register={register}
-                          errors={errors}
-                        />{" "}
-                        <InputField
-                          label="Email"
-                          required
-                          id="email"
-                          className="text-sm"
-                          type="email"
-                          message="*Email is required"
-                          placeholder="Enter your email"
-                          register={register}
-                          errors={errors}
-                          readOnly
-                        />{" "}
-                        <InputField
-                          label="Enter New Password"
-                          id="password"
-                          className="text-sm"
-                          type="password"
-                          message="*Password is required"
-                          placeholder="type your password"
-                          register={register}
-                          errors={errors}
-                          min={6}
-                        />
-                        <Buttons
-                          disabled={loading}
-                          className="bg-customRed font-semibold flex justify-center text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
-                          type="submit"
-                        >
-                          {loading ? <span>Loading...</span> : "Update"}
-                        </Buttons>
-                      </form>
-                    </AccordionDetails>
-                  </Accordion>
-                  <div className="mt-6">
-                    <Accordion expanded={openSetting}>
-                      <AccordionSummary
-                        className="shadow-md shadow-gray-300"
-                        onClick={onOpenSettingHandler}
-                        expandIcon={<ArrowDropDownIcon />}
-                        aria-controls="panel1-content"
-                        id="panel1-header"
-                      >
-                        <h3 className="text-slate-800 text-lg font-semibold">
-                          Account Setting
-                        </h3>
-                      </AccordionSummary>
-                      <AccordionDetails className="shadow-md shadow-gray-300">
-                        <div className="flex flex-col gap-4">
-                          <div>
-                            <h3 className="text-slate-700 font-customWeight text-sm ">
-                              Account Expired
-                            </h3>
-                            <Switch
-                              checked={accountExpired}
-                              onChange={handleAccountExpiryStatus}
-                              inputProps={{ "aria-label": "controlled" }}
-                            />
-                          </div>{" "}
-                          <div>
-                            <h3 className="text-slate-700 font-customWeight text-sm ">
-                              Account Locked
-                            </h3>
-                            <Switch
-                              checked={accountLocked}
-                              onChange={handleAccountLockStatus}
-                              inputProps={{ "aria-label": "controlled" }}
-                            />
-                          </div>{" "}
-                          <div>
-                            <h3 className="text-slate-700 font-customWeight text-sm ">
-                              Account Enabled
-                            </h3>
-                            <Switch
-                              checked={accountEnabled}
-                              onChange={handleAccountEnabledStatus}
-                              inputProps={{ "aria-label": "controlled" }}
-                            />
-                          </div>
-                          <>
-                            <div className="mb-2">
-                              <h3 className="text-slate-700 font-customWeight text-sm ">
-                                Credential Setting
-                              </h3>
-                              <div className="shadow-gray-300 shadow-md px-4 py-4 rounded-md">
-                                <p className="text-slate-700  text-sm ">
-                                  Your credential will expired{" "}
-                                  <span>{credentialExpireDate}</span>
-                                </p>
-                              </div>
-                            </div>
-                          </>
-                          <div>
-                            <h3 className="text-slate-700 font-customWeight text-sm">
-                              Credential Expired
-                            </h3>
-                            <Switch
-                              checked={credentialExpired}
-                              onChange={handleCredentialExpiredStatus}
-                              inputProps={{ "aria-label": "controlled" }}
-                            />
-                          </div>
-                        </div>
-                      </AccordionDetails>
-                    </Accordion>
-                  </div>
+    <div className="min-h-[calc(100vh-74px)] py-10 relative">
+      {/* Ambient glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-vault-500/5 rounded-full blur-3xl pointer-events-none" />
 
-                  <div className="pt-10 ">
-                    <h3 className="text-slate-800 text-lg font-semibold  mb-2 px-2">
-                      Last Login Session
+      {pageLoader ? (
+        <div className="flex flex-col justify-center items-center h-72">
+          <span>
+            <Blocks
+              height="70"
+              width="70"
+              color="#10b981"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              visible={true}
+            />
+          </span>
+          <span className="text-surface-400 mt-2">Please wait...</span>
+        </div>
+      ) : (
+        <div className="xl:w-[70%] lg:w-[80%] sm:w-[90%] w-full sm:mx-auto sm:px-0 px-4 min-h-[500px] flex lg:flex-row flex-col gap-6 relative z-10">
+          {/* Profile Details & Settings Card */}
+          <div className="flex-1 flex flex-col glass-card p-6 border border-white/[0.08]">
+            <div className="flex flex-col items-center gap-3 mb-6">
+              <Avatar
+                alt={currentUser?.username}
+                src="/static/images/avatar/1.jpg"
+                sx={{ width: 64, height: 64, border: "2px solid rgba(16,185,129,0.3)" }}
+              />
+              <h3 className="font-bold text-2xl text-surface-100 font-outfit">
+                {currentUser?.username}
+              </h3>
+            </div>
+
+            <div className="space-y-4">
+              <div className="glass-card bg-white/[0.02] border border-white/[0.05] p-4 space-y-2">
+                <h1 className="font-semibold text-sm text-surface-300 font-outfit flex justify-between items-center">
+                  <span>UserName:</span>
+                  <span className="text-surface-100 font-normal">{currentUser?.username}</span>
+                </h1>
+                <h1 className="font-semibold text-sm text-surface-300 font-outfit flex justify-between items-center">
+                  <span>Role:</span>
+                  <span className="text-surface-100 font-normal uppercase tracking-wider text-xs bg-vault-500/10 text-vault-400 px-2 py-0.5 rounded">
+                    {currentUser && currentUser["roles"][0]}
+                  </span>
+                </h1>
+              </div>
+
+              <div className="space-y-3">
+                <Accordion 
+                  expanded={openAccount}
+                  sx={{
+                    backgroundColor: "rgba(255, 255, 255, 0.02)",
+                    border: "1px solid rgba(255, 255, 255, 0.06)",
+                    borderRadius: "12px !important",
+                    color: "#e4e4e7",
+                    boxShadow: "none",
+                    "&:before": { display: "none" }
+                  }}
+                >
+                  <AccordionSummary
+                    onClick={onOpenAccountHandler}
+                    expandIcon={<ArrowDropDownIcon sx={{ color: "#10b981" }} />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                    sx={{
+                      borderBottom: openAccount ? "1px solid rgba(255, 255, 255, 0.06)" : "none",
+                      "& .MuiAccordionSummary-content": { margin: "12px 0" }
+                    }}
+                  >
+                    <h3 className="text-surface-100 text-base font-semibold font-outfit">
+                      Update User Credentials
                     </h3>
-                    <div className="shadow-md shadow-gray-300 px-4 py-2 rounded-md">
-                      <p className="text-slate-700 text-sm">
-                        Your Last LogIn Session when you are loggedin <br />
-                        <span>{loginSession}</span>
-                      </p>
+                  </AccordionSummary>
+                  <AccordionDetails sx={{ padding: "16px 20px" }}>
+                    <form
+                      className="flex flex-col gap-3"
+                      onSubmit={handleSubmit(handleUpdateCredential)}
+                    >
+                      <InputField
+                        label="UserName"
+                        required
+                        id="username"
+                        className="text-sm"
+                        type="text"
+                        message="*Username is required"
+                        placeholder="Enter your username"
+                        register={register}
+                        errors={errors}
+                      />
+                      <InputField
+                        label="Email"
+                        required
+                        id="email"
+                        className="text-sm"
+                        type="email"
+                        message="*Email is required"
+                        placeholder="Enter your email"
+                        register={register}
+                        errors={errors}
+                        readOnly
+                      />
+                      <InputField
+                        label="Enter New Password"
+                        id="password"
+                        className="text-sm"
+                        type="password"
+                        message="*Password is required"
+                        placeholder="type your password"
+                        register={register}
+                        errors={errors}
+                        min={6}
+                      />
+                      <Buttons
+                        disabled={loading}
+                        className="vault-btn font-semibold flex justify-center text-white w-full py-2.5 my-2"
+                        type="submit"
+                      >
+                        {loading ? <span>Loading...</span> : "Update Credentials"}
+                      </Buttons>
+                    </form>
+                  </AccordionDetails>
+                </Accordion>
+
+                <Accordion 
+                  expanded={openSetting}
+                  sx={{
+                    backgroundColor: "rgba(255, 255, 255, 0.02)",
+                    border: "1px solid rgba(255, 255, 255, 0.06)",
+                    borderRadius: "12px !important",
+                    color: "#e4e4e7",
+                    boxShadow: "none",
+                    "&:before": { display: "none" }
+                  }}
+                >
+                  <AccordionSummary
+                    onClick={onOpenSettingHandler}
+                    expandIcon={<ArrowDropDownIcon sx={{ color: "#10b981" }} />}
+                    aria-controls="panel2-content"
+                    id="panel2-header"
+                    sx={{
+                      borderBottom: openSetting ? "1px solid rgba(255, 255, 255, 0.06)" : "none",
+                      "& .MuiAccordionSummary-content": { margin: "12px 0" }
+                    }}
+                  >
+                    <h3 className="text-surface-100 text-base font-semibold font-outfit">
+                      Account Settings
+                    </h3>
+                  </AccordionSummary>
+                  <AccordionDetails sx={{ padding: "16px 20px" }}>
+                    <div className="flex flex-col gap-4">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-surface-300 font-customWeight text-sm">
+                          Account Expired
+                        </h3>
+                        <Switch
+                          checked={accountExpired}
+                          onChange={handleAccountExpiryStatus}
+                          inputProps={{ "aria-label": "controlled" }}
+                          sx={{
+                            '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
+                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
+                            '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
+                          }}
+                        />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-surface-300 font-customWeight text-sm">
+                          Account Locked
+                        </h3>
+                        <Switch
+                          checked={accountLocked}
+                          onChange={handleAccountLockStatus}
+                          inputProps={{ "aria-label": "controlled" }}
+                          sx={{
+                            '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
+                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
+                            '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
+                          }}
+                        />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-surface-300 font-customWeight text-sm">
+                          Account Enabled
+                        </h3>
+                        <Switch
+                          checked={accountEnabled}
+                          onChange={handleAccountEnabledStatus}
+                          inputProps={{ "aria-label": "controlled" }}
+                          sx={{
+                            '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
+                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
+                            '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
+                          }}
+                        />
+                      </div>
+                      
+                      <div className="border-t border-white/[0.06] pt-4">
+                        <h3 className="text-surface-300 font-customWeight text-sm mb-2">
+                          Credential Expiry Date
+                        </h3>
+                        <div className="bg-white/[0.02] border border-white/[0.05] px-4 py-3 rounded-lg">
+                          <p className="text-surface-300 text-sm">
+                            Credentials will expire on: <span className="text-vault-400 font-semibold">{credentialExpireDate}</span>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-surface-300 font-customWeight text-sm">
+                          Credential Expired
+                        </h3>
+                        <Switch
+                          checked={credentialExpired}
+                          onChange={handleCredentialExpiredStatus}
+                          inputProps={{ "aria-label": "controlled" }}
+                          sx={{
+                            '& .MuiSwitch-switchBase.Mui-checked': { color: '#10b981' },
+                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#10b981' },
+                            '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.1)' }
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </AccordionDetails>
+                </Accordion>
+              </div>
+
+              <div className="border-t border-white/[0.06] pt-6">
+                <h3 className="text-surface-100 text-base font-semibold font-outfit mb-3">
+                  Last Login Session
+                </h3>
+                <div className="bg-white/[0.02] border border-white/[0.05] px-4 py-3 rounded-lg">
+                  <p className="text-surface-300 text-sm leading-relaxed">
+                    Last session initialized:<br />
+                    <span className="text-vault-400 font-semibold">{loginSession}</span>
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="flex-1 flex flex-col shadow-lg shadow-gray-300 gap-2 px-4 py-6">
-              <div className="space-y-1">
-                <h1 className="text-slate-800 flex items-center gap-1 text-2xl font-bold">
-                  <span>Authentication (MFA)</span>
+          </div>
+
+          {/* MFA Settings Card */}
+          <div className="flex-1 flex flex-col glass-card p-6 border border-white/[0.08] justify-between">
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <h1 className="text-surface-100 flex items-center justify-between text-2xl font-bold font-outfit">
+                  <span>MFA Authentication</span>
                   <span
-                    className={` ${
-                      is2faEnabled ? "bg-green-800" : "bg-customRed"
-                    } px-2 text-center py-1 text-xs mt-2 rounded-sm text-white`}
+                    className={`px-3.5 py-1 text-xs font-semibold rounded-full ${
+                      is2faEnabled 
+                        ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" 
+                        : "bg-red-500/10 text-red-400 border border-red-500/20"
+                    }`}
                   >
                     {is2faEnabled ? "Activated" : "Deactivated"}
                   </span>
-                </h1>{" "}
-                <h3 className="text-slate-800 text-xl font-semibold">
-                  Multi Factor Authentication
-                </h3>{" "}
-                <p className="text-slate-800 text-sm ">
-                  Two Factor Authentication Add a additional layer of security
-                  to your account
+                </h1>
+                <h3 className="text-surface-200 text-lg font-semibold font-outfit">
+                  Multi-Factor Authentication
+                </h3>
+                <p className="text-surface-400 text-sm leading-relaxed">
+                  Two-factor authentication adds an additional layer of security to your account.
+                  When active, you will be required to input a 6-digit verification code from an
+                  authenticator app during login.
                 </p>
               </div>
 
@@ -522,50 +572,64 @@ const UserProfile = () => {
                 <Buttons
                   disabled={disabledLoader}
                   onClickhandler={is2faEnabled ? disable2FA : enable2FA}
-                  className={` ${
-                    is2faEnabled ? "bg-customRed" : "bg-btnColor"
-                  } px-5 py-1 hover:text-slate-300 rounded-sm text-white mt-2`}
+                  className={is2faEnabled 
+                    ? "bg-red-500/10 border border-red-500/20 text-red-400 font-semibold px-5 py-2.5 rounded-lg hover:bg-red-500/20 transition-all duration-300 w-full"
+                    : "vault-btn font-semibold text-white px-5 py-2.5 w-full"
+                  }
                 >
                   {disabledLoader ? (
                     <>Loading...</>
                   ) : (
                     <>
                       {is2faEnabled
-                        ? "Disabled Two Factor Authentication"
+                        ? "Disable Two Factor Authentication"
                         : "Enable Two Factor Authentication"}
                     </>
                   )}
                 </Buttons>
               </div>
+
               {step === 2 && (
-                <div className="py-3">
-                  <Accordion>
+                <div className="pt-4 animate-slide-up">
+                  <Accordion
+                    defaultExpanded
+                    sx={{
+                      backgroundColor: "rgba(255, 255, 255, 0.02)",
+                      border: "1px solid rgba(255, 255, 255, 0.06)",
+                      borderRadius: "12px !important",
+                      color: "#e4e4e7",
+                      boxShadow: "none",
+                    }}
+                  >
                     <AccordionSummary
-                      expandIcon={<ArrowDropDownIcon />}
-                      aria-controls="panel1-content"
-                      id="panel1-header"
+                      expandIcon={<ArrowDropDownIcon sx={{ color: "#10b981" }} />}
+                      aria-controls="panel3-content"
+                      id="panel3-header"
+                      sx={{ borderBottom: "1px solid rgba(255, 255, 255, 0.06)" }}
                     >
-                      <h3 className="font-bold text-lg  text-slate-700 uppercase">
-                        QR Code To Scan
+                      <h3 className="font-bold text-sm text-surface-200 font-outfit uppercase tracking-wider">
+                        Scan QR Code
                       </h3>
                     </AccordionSummary>
                     <AccordionDetails>
-                      <div className="">
-                        <img src={qrCodeUrl} alt="QR Code" />
-                        <div className="flex items-center  gap-2  mt-4">
+                      <div className="flex flex-col items-center py-4">
+                        <div className="p-3 bg-white rounded-xl mb-6 shadow-glow">
+                          <img src={qrCodeUrl} alt="QR Code" className="w-48 h-48" />
+                        </div>
+                        <div className="w-full flex sm:flex-row flex-col items-stretch gap-3">
                           <input
                             type="text"
                             placeholder="Enter 2FA code"
                             value={code}
                             required
-                            className="mt-4 border px-2 py-1 border-slate-800 rounded-md"
+                            className="glass-input px-3 py-2 flex-1"
                             onChange={(e) => setCode(e.target.value)}
                           />
                           <button
-                            className="bg-btnColor text-white  px-3 h-10 rounded-md mt-4"
+                            className="vault-btn text-white px-6 py-2 rounded-lg font-semibold whitespace-nowrap"
                             onClick={verify2FA}
                           >
-                            {twofaCodeLoader ? "Loading..." : "Verify 2FA"}
+                            {twofaCodeLoader ? "Verifying..." : "Verify Code"}
                           </button>
                         </div>
                       </div>
@@ -575,7 +639,7 @@ const UserProfile = () => {
               )}
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
