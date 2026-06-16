@@ -36,6 +36,10 @@ public class JwtUtils {
     }
 
     public String generateTokenFromUsername(UserDetailsImpl userDetails) {
+        return generateTokenFromUsername(userDetails, !userDetails.is2faEnabled());
+    }
+
+    public String generateTokenFromUsername(UserDetailsImpl userDetails, boolean is2faVerified) {
         String username = userDetails.getUsername();
         String roles = userDetails.getAuthorities().stream().map(authority->authority.getAuthority())
                 .collect(Collectors.joining(","));
@@ -43,17 +47,33 @@ public class JwtUtils {
                 .subject(username)
                 .claim("roles",roles)
                 .claim("is2faEnabled",userDetails.is2faEnabled())
+                .claim("is2faVerified", is2faVerified)
                 .issuedAt(new Date())
                 .expiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(key())
                 .compact();
     }
 
-    public String getUserNameFromJwtToken(String token) {
+    public Claims getClaimsFromJwt(String token) {
         return Jwts.parser()
-                        .verifyWith((SecretKey) key())
-                .build().parseSignedClaims(token)
-                .getPayload().getSubject();
+                .verifyWith((SecretKey) key())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    public String getUserNameFromJwtToken(String token) {
+        return getClaimsFromJwt(token).getSubject();
+    }
+
+    public boolean is2faEnabledFromJwtToken(String token) {
+        Boolean is2faEnabled = getClaimsFromJwt(token).get("is2faEnabled", Boolean.class);
+        return is2faEnabled != null && is2faEnabled;
+    }
+
+    public boolean is2faVerifiedFromJwtToken(String token) {
+        Boolean is2faVerified = getClaimsFromJwt(token).get("is2faVerified", Boolean.class);
+        return is2faVerified != null && is2faVerified;
     }
 
     private Key key() {

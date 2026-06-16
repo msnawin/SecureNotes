@@ -157,7 +157,12 @@ public class UserServiceImpl implements UserService {
 
         String resetUrl = frontendUrl + "/reset-password?token=" + token;
         // Send email to user
-        emailService.sendPasswordResetEmail(user.getEmail(),resetUrl);
+        try {
+            emailService.sendPasswordResetEmail(user.getEmail(), resetUrl);
+        } catch (Exception e) {
+            System.err.println("CRITICAL: Failed to send password reset email. Reset link is: " + resetUrl);
+            e.printStackTrace();
+        }
     }
     @Override
     public void resetPassword(String token, String newPassword) {

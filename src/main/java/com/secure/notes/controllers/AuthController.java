@@ -200,9 +200,31 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse(e.getMessage()));
         }
+    }
 
-
-
+    @PostMapping("/update-credentials")
+    public ResponseEntity<?> updateCredentials(@RequestParam String newUsername,
+                                               @RequestParam(required = false) String newPassword) {
+        try {
+            User user = authUtil.loggedInUser();
+            
+            if (!user.getUserName().equals(newUsername)) {
+                if (userRepository.existsByUserName(newUsername)) {
+                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+                }
+                user.setUserName(newUsername);
+            }
+            
+            if (newPassword != null && !newPassword.trim().isEmpty()) {
+                user.setPassword(encoder.encode(newPassword));
+            }
+            
+            userRepository.save(user);
+            return ResponseEntity.ok(new MessageResponse("Credentials updated successfully"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse(e.getMessage()));
+        }
     }
     @PostMapping("/enable-2fa")
     public ResponseEntity<String> enable2FA() {
@@ -254,7 +276,9 @@ public class AuthController {
         User user = userService.findByUsername(username);
         boolean isValid = userService.validate2FACode(user.getUserId(), code);
         if (isValid) {
-            return ResponseEntity.ok("2FA Verified");
+            UserDetailsImpl userDetails = UserDetailsImpl.build(user);
+            String newJwtToken = jwtUtils.generateTokenFromUsername(userDetails, true);
+            return ResponseEntity.ok(newJwtToken);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid 2FA Code");

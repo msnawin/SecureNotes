@@ -56,6 +56,7 @@ public class SecurityConfig {
         http.csrf(csrf->csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .ignoringRequestMatchers("/api/auth/public/**")
         );
+        http.sessionManagement(session -> session.sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/csrf-token").permitAll()
@@ -96,7 +97,7 @@ public class SecurityConfig {
 
             if (!userRepository.existsByUserName("user1")) {
                 User user1 = new User("user1", "user1@example.com", passwordEncoder.encode("password1"));
-                user1.setAccountNonLocked(false);
+                user1.setAccountNonLocked(true);
                 user1.setAccountNonExpired(true);
                 user1.setCredentialsNonExpired(true);
                 user1.setEnabled(true);
@@ -106,6 +107,13 @@ public class SecurityConfig {
                 user1.setSignUpMethod("email");
                 user1.setRole(userRole);
                 userRepository.save(user1);
+            } else {
+                userRepository.findByUserName("user1").ifPresent(user1 -> {
+                    if (!user1.isAccountNonLocked()) {
+                        user1.setAccountNonLocked(true);
+                        userRepository.save(user1);
+                    }
+                });
             }
 
             if (!userRepository.existsByUserName("admin")) {
