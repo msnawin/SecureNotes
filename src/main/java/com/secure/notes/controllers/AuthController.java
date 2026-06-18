@@ -77,6 +77,7 @@ public class AuthController {
             map.put("message", "Bad credentials");
             map.put("status", false);
             return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+
         }
 
 //      set the authentication
